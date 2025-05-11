@@ -1,0 +1,2 @@
+C:/FlutterCalisma/kurs/android/app/.cxx/Debug/543h3v1h/x86_64/CMakeFiles/edit_cache.dir
+C:/FlutterCalisma/kurs/android/app/.cxx/Debug/543h3v1h/x86_64/CMakeFiles/rebuild_cache.dir
