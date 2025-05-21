@@ -5,6 +5,7 @@ import 'package:kurs/screens/auth/giris_yap.dart';
 import 'package:kurs/screens/auth/register.dart';
 import 'package:kurs/screens/auth/login.dart';
 import 'package:kurs/screens/chat_screen.dart';
+import 'package:kurs/services/import_service.dart';
 
 import 'firebase_options.dart';
 
@@ -13,6 +14,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  //await ImportService.importWordsFromJson();
   runApp(ProviderScope(child: const MyApp()));
 }
 

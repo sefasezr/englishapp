@@ -92,7 +92,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                 ),
                 SizedBox(width: 5),
-                Image.asset('assets/images/logo.png', height: 30),
+                Image.asset('assets/images/sparky_logo.png', height: 30),
               ],
             ),
             centerTitle: true,
@@ -121,10 +121,9 @@ class _ChatScreenState extends State<ChatScreen> {
                     decoration: BoxDecoration(
                       color: isUser ? mediumBlue : Colors.white,
                       borderRadius: BorderRadius.circular(20),
-                      border:
-                          !isUser
-                              ? Border.all(color: mediumBlue.withOpacity(0.5))
-                              : null,
+                      border: !isUser
+                          ? Border.all(color: mediumBlue.withOpacity(0.5))
+                          : null,
                     ),
                     child: Text(
                       message['message']!,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kurs/screens/home_screen.dart';
 import '../../services/auth_service.dart';
 import '../chat_screen.dart';
 import 'register.dart';
@@ -139,7 +140,7 @@ class _GirisYapState extends State<GirisYap> {
                                         (value) => Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (_) => ChatScreen(),
+                                            builder: (_) => HomeScreen(),
                                           ),
                                         ),
                                       );

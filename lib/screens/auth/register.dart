@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../model/student.dart';
 import '../../services/auth_service.dart';
+import '../../services/student_service.dart';
 import 'giris_yap.dart';
 
 class KayitOl extends StatefulWidget {
@@ -181,22 +183,51 @@ class _KayitOlState extends State<KayitOl> {
                             width: double.infinity,
                             height: 50,
                             child: ElevatedButton(
-                              onPressed: () {
+                              onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  ref
-                                      .read(authServiceProvider)
-                                      .signUpWithEmailAndPassword(
-                                        email: _emailController.text,
-                                        password: _passwordController.text,
-                                      )
-                                      .then(
-                                        (value) => Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (_) => GirisYap(),
-                                          ),
-                                        ),
-                                      );
+                                  final email = _emailController.text.trim();
+                                  final password =
+                                      _passwordController.text.trim();
+                                  final firstName = _nameController.text.trim();
+                                  final lastName =
+                                      _surnameController.text.trim();
+                                  final username =
+                                      _usernameController.text.trim();
+
+                                  try {
+                                    // 1) Auth ile kayıt
+                                    await ref
+                                        .read(authServiceProvider)
+                                        .signUpWithEmailAndPassword(
+                                          email: email,
+                                          password: password,
+                                        );
+
+                                    // 2) Firestore'a öğrenci bilgisi ekle
+                                    final student = Student(
+                                        name: firstName,
+                                        surname: lastName,
+                                        username: username,
+                                        email: email,
+                                        joinedAt: DateTime.now());
+                                    await ref
+                                        .read(userServiceProvider)
+                                        .createStudent(student);
+
+                                    // 3) Kayıt sonrası giriş sayfasına geç
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => GirisYap()),
+                                    );
+                                  } catch (e) {
+                                    // Hata yakalama ve kullanıcıya gösterme
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              'Kayıt sırasında bir hata oluştu: $e')),
+                                    );
+                                  }
                                 }
                               },
                               style: ElevatedButton.styleFrom(
